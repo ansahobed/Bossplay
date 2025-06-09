@@ -24,16 +24,16 @@ export function Footer() {
 
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+              <a href="https://www.instagram.com/bossplaymusic/?fbclid=IwY2xjawKz5FFleHRuA2FlbQIxMABicmlkETFhN2xmcmloS3huSnZRRHVkAR5PGxgxFhotq9rrOZIjPKQb7lghQ3-RRJIxFjPuz-_NmTn42sMu2Ddo1Izdiw_aem_k5K9zOsCSJAQ5US-5afmsA#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                 <Instagram className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+              <a href="https://www.youtube.com/@bossplaymusic3334" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                 <Youtube className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+              <a href="https://www.facebook.com/share/1BUd8EEovJ/?mibextid=wwXIfr" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                 <Facebook className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+              <a href="https://x.com/bossplay_music?fbclid=IwY2xjawKz48FleHRuA2FlbQIxMABicmlkETFhN2xmcmloS3huSnZRRHVkAR7ZlDbCueBDIeUytL53VHYwbULb99hEtohkJUU0w4q8reGk2wNEaOMIL4iSTQ_aem_68BLmTczUWQpSEdo-IgTIA" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                 <Twitter className="w-5 h-5 text-white" />
               </a>
               

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { awards } from '../data';
+import { awards } from '../data/awards'; // make sure path is correct
+import { Award } from '../data/awards';
 
 export function Awards() {
   return (
@@ -21,7 +22,7 @@ export function Awards() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {awards.map((award, index) => (
+          {awards.map((award: Award, index: number) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -29,15 +30,11 @@ export function Awards() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="text-center p-8 rounded-lg bg-primary-purple/10 backdrop-blur-sm border border-white/10 hover:border-primary-gold/50 transition-all duration-300"
             >
-              <div className="text-4xl mb-4">
-                {award.icon}
-              </div>
+              <div className="text-4xl mb-4">{award.icon}</div>
               <h3 className="text-xl font-serif font-semibold text-primary-gold mb-4">
                 {award.title}
               </h3>
-              <p className="text-white/70">
-                {award.organization}
-              </p>
+              <p className="text-white/70">{award.organization}</p>
             </motion.div>
           ))}
         </div>
