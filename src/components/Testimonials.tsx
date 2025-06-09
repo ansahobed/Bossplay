@@ -11,14 +11,14 @@ export function Testimonials() {
     {
       quote: "BossPlay Music brought incredible energy to our festival. Their Afrobeats fusion had the entire crowd dancing!",
       author: "Kwame Asante",
-      company: "Accra Music Festival Director",
+      company: "Bossplay Accra  Director",
       image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
       rating: 5
     },
     {
       quote: "Working with BossPlay on our film soundtrack was amazing. They perfectly captured the soul of our story.",
-      author: "Ama Serwaa",
-      company: "Film Producer, Ghana",
+      author: "Smart Wagez ",
+      company: "Computer Engineer , Ghana",
       image: "https://images.pexels.com/photos/1699159/pexels-photo-1699159.jpeg",
       rating: 5
     },
