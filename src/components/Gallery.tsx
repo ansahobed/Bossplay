@@ -53,7 +53,7 @@ export function Gallery() {
             <span className="gradient-text">Gallery</span>
           </h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
-            Capturing moments from our musical journey and live experiences
+            Capturing moments from our musical journey,Masquarade Tensions and live experiences
           </p>
         </motion.div>
 
