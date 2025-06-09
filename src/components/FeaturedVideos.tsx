@@ -113,7 +113,9 @@ export function FeaturedVideos() {
 
         <div className="text-center">
           <a
-            href="#"
+            href="https://www.youtube.com/@bossplaymusic3334"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-outline inline-flex items-center space-x-2"
           >
             <ExternalLink className="w-5 h-5" />

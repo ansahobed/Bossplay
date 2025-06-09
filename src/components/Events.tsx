@@ -5,7 +5,7 @@ import { Calendar, MapPin, Clock, ExternalLink } from 'lucide-react';
 export function Events() {
   const events = [
     {
-      date: '2025-02-15',
+      date: '2026-01-15',
       title: 'KY Xperience',
       venue: 'National Theatre, Accra',
       time: '8:00 PM',
@@ -21,7 +21,7 @@ export function Events() {
       ticketLink: '#'
     },
     {
-      date: '2025-03-22',
+      date: '2025-07-12',
       title: 'Global Music Fusion',
       venue: 'Alliance Française, Accra',
       time: '7:30 PM',
