@@ -19,7 +19,7 @@ export function Footer() {
             <p className="text-white/70 mb-6 leading-relaxed">
              Feel the Vibe. Hear the Soul.
                BossPlay Music is the live brand band that merges African roots, 
-               soul, and global soundscapes into unforgettable audio experiences.
+                     soul, and global soundscapes into unforgettable audio experiences.
 
 
             </p>
@@ -36,6 +36,7 @@ export function Footer() {
               <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                 <Twitter className="w-5 h-5 text-white" />
               </a>
+              
             </div>
           </div>
 

@@ -167,7 +167,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">Email</p>
-                    <p className="text-white font-medium">contact@bossplaymusic.com</p>
+                    <p className="text-white font-medium">Bossplaygh@gmail.com</p>
                   </div>
                 </div>
 
@@ -177,7 +177,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">Phone</p>
-                    <p className="text-white font-medium">+233 24 123 4567</p>
+                    <p className="text-white font-medium">+233 24 258 1363 / +233 53 077 3488 </p>
                   </div>
                 </div>
 
@@ -187,7 +187,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">Address</p>
-                    <p className="text-white font-medium">No. 1 Quail Link Comm. 17<br />Tema, Ghana</p>
+                    <p className="text-white font-medium">Apollo/Dupaul House No. (66)<br />Takoradi, Ghana</p>
                   </div>
                 </div>
               </div>
