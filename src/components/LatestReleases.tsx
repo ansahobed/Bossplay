@@ -2,13 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, ExternalLink } from 'lucide-react';
 
+
 export function LatestReleases() {
   const releases = [
     {
       title: "Afrobeat Vibes",
       artist: "BossPlay Music",
       cover: "https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg",
-      spotify: "#",
+      audiomack: "https://audiomack.com/bossplay-music",
       apple: "#",
       boomplay: "#",
     },
@@ -16,7 +17,7 @@ export function LatestReleases() {
       title: "Soul Connection",
       artist: "BossPlay Music",
       cover: "https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg",
-      spotify: "#",
+      AudioMack: "https://audiomack.com/bossplay-music",
       apple: "#",
       boomplay: "#",
     },
@@ -24,7 +25,7 @@ export function LatestReleases() {
       title: "Global Harmony",
       artist: "BossPlay Music",
       cover: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg",
-      spotify: "#",
+      audiomack: "https://audiomack.com/bossplay-music",
       apple: "#",
       boomplay: "#",
     },
@@ -75,11 +76,11 @@ export function LatestReleases() {
               
               <div className="flex space-x-4">
                 <a
-                  href={release.spotify}
+                  href={release.audiomack}
                   className="flex items-center space-x-2 text-accent-green hover:text-white transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span className="text-sm">Spotify</span>
+                  <span className="text-sm">AudioMack</span>
                 </a>
                 <a
                   href={release.apple}

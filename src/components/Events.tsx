@@ -6,7 +6,7 @@ export function Events() {
   const events = [
     {
       date: '2025-02-15',
-      title: 'Afrobeats Night Live',
+      title: 'KY Xperience',
       venue: 'National Theatre, Accra',
       time: '8:00 PM',
       status: 'upcoming',
