@@ -15,7 +15,8 @@ export function Hero() {
     seconds: 0,
   });
 
-  // Countdown to next event (example: 30 days from now)
+  const [isShrunk, setIsShrunk] = useState(false);
+
   useEffect(() => {
     const targetDate = new Date();
     targetDate.setDate(targetDate.getDate() + 30);
@@ -33,6 +34,14 @@ export function Hero() {
     }, 1000);
 
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsShrunk(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const slides = [
@@ -54,9 +63,14 @@ export function Hero() {
   ];
 
   return (
-    <section id="home" className="relative h-screen overflow-hidden">
+    <section
+      id="home"
+      className={`relative overflow-hidden transition-all duration-500 ease-in-out ${
+        isShrunk ? 'h-[70vh]' : 'h-screen'
+      }`}
+    >
       <div className="hero-glow absolute inset-0 z-10"></div>
-      
+
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         effect="fade"
@@ -91,27 +105,36 @@ export function Hero() {
             className="max-w-4xl mx-auto"
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black mb-6">
-              <span className="gradient-text">Feel the Vibe.</span>
+              <span className="gradient-text">Bossplay .</span>
               <br />
-              <span className="text-white">Hear the Soul.</span>
+              <span className="text-white">Feel The Vibe.</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Afrobeats, Soul, and Global Music Energy. One Sound. One Movement.
+              The Invictus, One God is Enough, Asempa Ye Tsia.....
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <button className="btn btn-primary flex items-center justify-center space-x-2">
+              <a
+                href="https://audiomack.com/bossplay-music"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary flex items-center justify-center space-x-2"
+              >
                 <Play className="w-5 h-5" />
                 <span>Listen Now</span>
-              </button>
-              <button className="btn btn-outline flex items-center justify-center space-x-2">
+              </a>
+              <a
+                href="https://www.facebook.com/share/1BUd8EEovJ/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline flex items-center justify-center space-x-2"
+              >
                 <Music className="w-5 h-5" />
                 <span>Join the Journey</span>
-              </button>
+              </a>
             </div>
 
-            {/* Countdown Timer */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
