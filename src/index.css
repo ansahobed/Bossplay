@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-primary text-white font-body overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-20;
+  }
+
+  .btn {
+    @apply px-8 py-4 rounded-full transition-all duration-300 font-heading font-semibold text-lg relative overflow-hidden;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-primary text-white hover:scale-105 transform;
+    background: linear-gradient(135deg, #FF1493, #8A2BE2, #1E90FF);
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+
+  .btn-primary:hover {
+    @apply animate-glow;
+  }
+
+  .btn-outline {
+    @apply border-2 border-accent-fuchsia text-accent-fuchsia hover:bg-accent-fuchsia hover:text-black;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-primary bg-clip-text text-transparent;
+    background: linear-gradient(135deg, #FF1493, #8A2BE2, #1E90FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-card {
+    @apply bg-primary/80 backdrop-blur-sm border border-white/10 rounded-2xl;
+    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.1);
+  }
+
+  .glow-card:hover {
+    @apply border-accent-fuchsia/50;
+    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.3);
+  }
+
+  .neon-input {
+    @apply bg-primary/50 border border-accent-fuchsia/30 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:border-accent-fuchsia focus:outline-none focus:ring-2 focus:ring-accent-fuchsia/20;
+  }
+}
+
+.swiper-pagination-bullet {
+  @apply bg-accent-fuchsia;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-accent-fuchsia;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-primary rounded-full;
+}
+
+/* Glowing effects */
+.hero-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 20, 147, 0.1) 0%, transparent 50%);
+}
+
+.section-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.05) 0%, transparent 70%);
+}
