@@ -17,8 +17,11 @@ export function Footer() {
               </span>
             </div>
             <p className="text-white/70 mb-6 leading-relaxed">
-              Feel the Vibe. Hear the Soul. Where Afrobeats meets global music energy, 
-              creating unforgettable experiences that move both body and spirit.
+             Feel the Vibe. Hear the Soul.
+               BossPlay Music is the live brand band that merges African roots, 
+               soul, and global soundscapes into unforgettable audio experiences.
+
+
             </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
@@ -106,15 +109,19 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-center space-x-3 text-white/70">
                 <Mail className="w-5 h-5 text-accent-fuchsia" />
-                <span>contact@bossplaymusic.com</span>
+                <span>Bossplaygh@gmail.com</span>
               </li>
               <li className="flex items-center space-x-3 text-white/70">
                 <Phone className="w-5 h-5 text-accent-blue" />
-                <span>+233 24 123 4567</span>
+                <span>+233 24 258 1363</span>
+              </li>
+              <li className="flex items-center space-x-3 text-white/70">
+                <Phone className="w-5 h-5 text-accent-blue" />
+                <span>+233 53 077 3488</span>
               </li>
               <li className="flex items-center space-x-3 text-white/70">
                 <MapPin className="w-5 h-5 text-accent-green" />
-                <span>No. 1 Quail Link Comm. 17<br />Tema, Ghana</span>
+                <span>Apollo/Dupaul House No.(66)-<br />Takoradi, Ghana</span>
               </li>
             </ul>
           </div>
