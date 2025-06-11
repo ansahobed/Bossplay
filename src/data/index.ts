@@ -61,7 +61,7 @@ export const awards = [
     icon: "🌟",
   },
   {
-    title: "Soundtrack of the Year",
+    title: "Soundtrack of the Year...",
     organization: "African Film Awards 2023",
     icon: "🎵",
   },
