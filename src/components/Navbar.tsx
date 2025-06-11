@@ -24,6 +24,7 @@ export function Navbar() {
     { href: '#events', label: 'Events' },
     { href: '#services', label: 'Services' },
     { href: '#contact', label: 'Contact' },
+    
   ];
 
   return (

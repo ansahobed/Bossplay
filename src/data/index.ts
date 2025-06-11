@@ -51,13 +51,13 @@ export const testimonials = [
 
 export const awards = [
   {
-    title: "Best Luxury Sound Brand",
-    organization: "African Music Excellence Awards 2024",
+    title: "Winner-Brassband Competition  2023",
+    organization: "Ebony/Skyy Media",
     icon: "🏆",
   },
   {
-    title: "Top 10 Innovative Music Collectives",
-    organization: "Global Sound Report",
+    title: "Perfomed at All Nations African Games",
+    organization: "Ghana Football Association ",
     icon: "🌟",
   },
   {

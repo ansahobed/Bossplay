@@ -11,8 +11,10 @@ import { Events } from './components/Events';
 import { Gallery } from './components/Gallery';
 import { Testimonials } from './components/Testimonials';
 import { Partners } from './components/Partners';
+import { Awards } from './components/Awards';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+
 
 function HomePage() {
   return (
@@ -25,10 +27,12 @@ function HomePage() {
       <Services />
       <Events />
       <Gallery />
+      <Awards />
       <Testimonials />
       <Partners />
       <Contact />
       <Footer />
+      
     </>
   );
 }
