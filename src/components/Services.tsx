@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Music, Mic2, Film, Users, Radio, Mail, MessageCircleMore, X } from 'lucide-react';
+import { Music, Mic2, Film, Users, Radio, Phone, MessageCircleMore, X } from 'lucide-react';
 
 export function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,7 +110,7 @@ export function Services() {
               </button>
               <h3 className="text-2xl font-bold mb-4 text-primary">Get a Quote</h3>
               <p className="text-gray-700 mb-6">
-                Reach out to us directly through WhatsApp or Email and we’ll get back to you with a personalized quote.
+                Reach out to us directly through WhatsApp or Call and we’ll get back to you with a personalized quote.
               </p>
 
               <div className="flex flex-col space-y-3">
@@ -125,15 +125,14 @@ export function Services() {
                 </a>
 
                 <a
-                    href="mailto:bossplaygh@gmail.com?subject=Quote%20Request&body=Hi%20BossPlay,%0D%0A%0D%0AI'm%20interested%20in%20getting%20a%20quote%20for%20your%20services.%20Please%20let%20me%20know%20the%20next%20steps.%0D%0A%0D%0ARegards,%0D%0A[Your%20Name]"
-                    className="btn btn-outline flex items-center justify-center space-x-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                     <Mail className="w-5 h-5" />
-                        <span>Email Us</span>
-                      </a>
-
+                  href="tel:+233242581363"
+                  className="btn btn-outline flex items-center justify-center space-x-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Phone className="w-5 h-5" />
+                  <span>Call Us</span>
+                </a>
               </div>
             </div>
           </div>
