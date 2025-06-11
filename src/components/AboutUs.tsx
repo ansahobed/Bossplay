@@ -44,7 +44,7 @@ export function AboutUs() {
             </p>
             <p className="text-lg text-white/70 mb-8 leading-relaxed">
               Our journey began with a simple belief: music has the power to unite, heal, and inspire. 
-              From local stages to international platforms, we've carried the soul of Africa to the world, 
+              From local stages to national  platforms, we've carried the soul of Africa to the world, 
               creating sounds that resonate across continents.
             </p>
             

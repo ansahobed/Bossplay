@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-function calculateTimeLeft(targetDate) {
+function calculateTimeLeft(targetDate: Date) {
   const now = new Date().getTime();
   const distance = targetDate.getTime() - now;
 
@@ -23,32 +23,26 @@ function calculateTimeLeft(targetDate) {
 
 export function Hero() {
   const events = [
-    { id: 1, title: "Accra Music Festival", date: new Date("2025-07-15T20:00:00") },
-    { id: 2, title: "Studio Album Release", date: new Date("2025-08-01T18:00:00") },
-    { id: 3, title: "Global Tour Kickoff", date: new Date("2025-09-10T19:30:00") },
+    { id: 1, title: 'Accra Music Festival', date: new Date('2025-07-15T20:00:00') },
+    { id: 2, title: 'Studio Album Release', date: new Date('2025-08-01T18:00:00') },
+    { id: 3, title: 'Global Tour Kickoff', date: new Date('2025-09-10T19:30:00') },
   ];
 
-  // State to hold the next upcoming event
-  const [upcomingEvent, setUpcomingEvent] = useState(null);
-
-  // Countdown state for the hero
+  const [upcomingEvent, setUpcomingEvent] = useState<{ id: number; title: string; date: Date } | null>(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
-
   const [isShrunk, setIsShrunk] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-
-      // Find the next upcoming event dynamically
       const nextEvent = events
-        .filter(event => event.date > now)
-        .sort((a, b) => a.date - b.date)[0] || null;
+        .filter((event) => event.date > now)
+        .sort((a, b) => a.date.getTime() - b.date.getTime())[0] || null;
 
       setUpcomingEvent(nextEvent);
 
@@ -57,17 +51,15 @@ export function Hero() {
         if (newTimeLeft) {
           setTimeLeft(newTimeLeft);
         } else {
-          // Event passed, reset countdown
           setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         }
       } else {
-        // No upcoming events
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [events]);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,19 +71,19 @@ export function Hero() {
 
   const slides = [
     {
-      image: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg",
-      title: "Live Shows",
-      subtitle: "Experience the Energy",
+      image: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg',
+      title: 'Live Shows',
+      subtitle: 'Experience the Energy',
     },
     {
-      image: "https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg",
-      title: "Studio Sessions",
-      subtitle: "Behind the Magic",
+      image: 'https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg',
+      title: 'Studio Sessions',
+      subtitle: 'Behind the Magic',
     },
     {
-      image: "https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg",
-      title: "Global Movement",
-      subtitle: "One Sound, One Vision",
+      image: 'https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg',
+      title: 'Global Movement',
+      subtitle: 'One Sound, One Vision',
     },
   ];
 
@@ -117,9 +109,7 @@ export function Hero() {
             <div className="relative h-full">
               <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(${slide.image})`,
-                }}
+                style={{ backgroundImage: `url(${slide.image})` }}
               >
                 <div className="absolute inset-0 bg-black/60" />
                 <div className="absolute inset-0 bg-gradient-to-r from-accent-fuchsia/20 to-accent-purple/20" />
@@ -168,7 +158,6 @@ export function Hero() {
               </a>
             </div>
 
-            {/* Countdown timer block */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -178,7 +167,7 @@ export function Hero() {
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Calendar className="w-5 h-5 text-accent-fuchsia" />
                 <span className="text-accent-fuchsia font-semibold">
-                  Next Event: {upcomingEvent ? upcomingEvent.title : "No Upcoming Events"}
+                  Next Event: {upcomingEvent ? upcomingEvent.title : 'No Upcoming Events'}
                 </span>
               </div>
               <div className="grid grid-cols-4 gap-4 text-center">

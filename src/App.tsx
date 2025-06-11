@@ -1,3 +1,6 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { LatestReleases } from './components/LatestReleases';
@@ -11,25 +14,34 @@ import { Partners } from './components/Partners';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
+function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <LatestReleases />
+      <FeaturedVideos />
+      <AboutUs />
+      <Services />
+      <Events />
+      <Gallery />
+      <Testimonials />
+      <Partners />
+      <Contact />
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   return (
-    <div className="min-h-screen bg-primary">
-      <Navbar />
-      <main>
-        <Hero />
-        <LatestReleases />
-        <FeaturedVideos />
-        <AboutUs />
-        <Services />
-        <Events />
-        <Gallery />
-        <Testimonials />
-        <Partners />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* Redirect all unknown routes to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }
 

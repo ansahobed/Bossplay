@@ -73,4 +73,5 @@ export const coreValues = [
   { title: 'Innovation', description: 'Pushing boundaries in sound and creativity' },
   { title: 'Integrity', description: 'Operating with honesty and professionalism' },
   { title: 'Empowerment', description: 'Nurturing talent and fostering growth' },
+  
 ];

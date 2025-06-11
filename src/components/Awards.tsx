@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { awards } from '../data/awards'; // make sure path is correct
-import { Award } from '../data/awards';
+import { awards } from '../data';
+
+
 
 export function Awards() {
   return (
