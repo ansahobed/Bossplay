@@ -82,11 +82,13 @@ export default function PartnersManager() {
               key={partner.id}
               className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow text-center p-4"
             >
-              <img
-                src={partner.logo_url}
-                alt={partner.name}
-                className="w-24 h-24 mx-auto object-cover rounded-full mb-2 grayscale hover:grayscale-0 transition-all"
-              />
+              <div className="w-24 h-24 mx-auto mb-2 bg-white rounded-full overflow-hidden flex items-center justify-center">
+                <img
+                  src={partner.logo_url}
+                  alt={partner.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
               <p className="font-semibold text-white">{partner.name}</p>
               <button
                 onClick={() => deletePartner(partner.id)}

@@ -17,7 +17,10 @@ export function Partners() {
 
   useEffect(() => {
     const fetchPartners = async () => {
-      const { data, error } = await supabase.from('partners').select('*').order('created_at', { ascending: true });
+      const { data, error } = await supabase
+        .from('partners')
+        .select('*')
+        .order('created_at', { ascending: true });
       if (error) {
         console.error('Error fetching partners:', error.message);
       } else {
@@ -72,11 +75,11 @@ export function Partners() {
                     rel="noopener noreferrer"
                     className="glow-card p-6 text-center hover:scale-105 transition-transform duration-300 block"
                   >
-                    <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 group-hover:animate-float">
+                    <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4">
                       <img
                         src={partner.logo_url}
                         alt={partner.name}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
+                        className="w-full h-full object-cover transition-all duration-300"
                       />
                     </div>
                     <h3 className="text-white font-heading font-semibold text-sm">
