@@ -133,6 +133,7 @@ export function Footer() {
             <p className="text-white/50 text-center md:text-left">
               &copy; {new Date().getFullYear()} BossPlay Music. All rights reserved.
             </p>
+      
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-white/50 hover:text-accent-fuchsia transition-colors text-sm">
                 Privacy Policy
@@ -140,9 +141,10 @@ export function Footer() {
               <a href="#" className="text-white/50 hover:text-accent-fuchsia transition-colors text-sm">
                 Terms of Service
               </a>
-              <a href="#" className="text-white/50 hover:text-accent-fuchsia transition-colors text-sm">
-                Cookie Policy
-              </a>
+              <p className="text-white/50 text-center md:text-left">
+               Designed By: Smart Tech & IT Solutions(+233-24-258-1363).
+            </p>
+              
             </div>
           </div>
         </div>
