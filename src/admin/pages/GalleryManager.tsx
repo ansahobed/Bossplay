@@ -67,12 +67,16 @@ export default function GalleryManager() {
           {images.map((item) => (
             <div
               key={item.id}
-              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+              className="bg-gray-900 rounded-xl overflow-hidden shadow-md transition-shadow"
             >
               <img
                 src={item.image_url}
                 alt="Gallery"
                 className="w-full h-48 object-cover"
+                style={{
+                  filter: 'none',           // Removes contrast/brightness filters
+                  transition: 'none'        // Avoids hover effects
+                }}
               />
               <div className="p-3 flex justify-between items-center">
                 <p className="text-sm text-white truncate">Image #{item.id}</p>
