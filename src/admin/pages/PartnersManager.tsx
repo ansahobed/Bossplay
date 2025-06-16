@@ -82,11 +82,11 @@ export default function PartnersManager() {
               key={partner.id}
               className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow text-center p-4"
             >
-              <div className="w-24 h-24 mx-auto mb-2 bg-white rounded-full overflow-hidden flex items-center justify-center">
+              <div className="w-full h-32 mb-2 overflow-hidden rounded">
                 <img
                   src={partner.logo_url}
                   alt={partner.name}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <p className="font-semibold text-white">{partner.name}</p>

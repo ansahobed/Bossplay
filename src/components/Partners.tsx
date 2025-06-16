@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { supabase } from '../lib/supabaseClient'; // adjust path if needed
+import { supabase } from '../lib/supabaseClient';
 import 'swiper/css';
 
 interface Partner {
@@ -75,11 +75,11 @@ export function Partners() {
                     rel="noopener noreferrer"
                     className="glow-card p-6 text-center hover:scale-105 transition-transform duration-300 block"
                   >
-                    <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4">
+                    <div className="w-full h-32 overflow-hidden rounded mb-4">
                       <img
                         src={partner.logo_url}
                         alt={partner.name}
-                        className="w-full h-full object-cover transition-all duration-300"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                     <h3 className="text-white font-heading font-semibold text-sm">
