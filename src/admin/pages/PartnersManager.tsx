@@ -1,4 +1,3 @@
-// src/admin/pages/PartnersManager.tsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -32,7 +31,6 @@ export default function PartnersManager() {
         name,
         logo_url: secure_url,
       });
-
       setName('');
       setFile(null);
       fetchPartners();
@@ -50,48 +48,55 @@ export default function PartnersManager() {
 
   return (
     <DashboardLayout>
-      <h2 className="text-2xl font-bold mb-4">Partners Manager</h2>
-      <form onSubmit={handleSubmit} className="space-y-3 mb-6">
-        <input
-          type="text"
-          placeholder="Partner Name"
-          className="p-2 border rounded w-full"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          required
-        />
-        <button
-          type="submit"
-          className="bg-yellow-600 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? 'Uploading...' : 'Add Partner'}
-        </button>
-      </form>
+      <div className="text-white">
+        <h2 className="text-2xl font-bold mb-6">Partners Manager</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {partners.map((partner) => (
-          <div key={partner.id} className="bg-white p-3 rounded shadow text-center">
-            <img
-              src={partner.logo_url}
-              alt={partner.name}
-              className="w-full h-24 object-contain mb-2"
-            />
-            <p className="font-semibold">{partner.name}</p>
-            <button
-              onClick={() => deletePartner(partner.id)}
-              className="mt-2 text-red-500 text-sm hover:underline"
+        <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+          <input
+            type="text"
+            placeholder="Partner Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white placeholder-white/60"
+            required
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded"
+            disabled={loading}
+          >
+            {loading ? 'Uploading...' : 'Add Partner'}
+          </button>
+        </form>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {partners.map((partner) => (
+            <div
+              key={partner.id}
+              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow text-center p-4"
             >
-              Delete
-            </button>
-          </div>
-        ))}
+              <img
+                src={partner.logo_url}
+                alt={partner.name}
+                className="w-24 h-24 mx-auto object-cover rounded-full mb-2 grayscale hover:grayscale-0 transition-all"
+              />
+              <p className="font-semibold text-white">{partner.name}</p>
+              <button
+                onClick={() => deletePartner(partner.id)}
+                className="mt-2 text-red-400 hover:text-red-600 text-sm"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </DashboardLayout>
   );

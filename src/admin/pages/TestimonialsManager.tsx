@@ -1,4 +1,3 @@
-// src/admin/pages/TestimonialsManager.tsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -7,7 +6,7 @@ import DashboardLayout from '../layout/DashboardLayout';
 export default function TestimonialsManager() {
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+  const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,22 +24,21 @@ export default function TestimonialsManager() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !message || !file) return;
-
+    if (!file || !name || !text) return;
     setLoading(true);
     try {
       const { secure_url } = await uploadToCloudinary(file);
       await supabase.from('testimonials').insert({
         name,
-        message,
+        text,
         image_url: secure_url,
       });
       setName('');
-      setMessage('');
+      setText('');
       setFile(null);
       fetchTestimonials();
     } catch (err) {
-      console.error('Failed to upload testimonial:', err);
+      console.error('Testimonial upload failed:', err);
     } finally {
       setLoading(false);
     }
@@ -53,56 +51,65 @@ export default function TestimonialsManager() {
 
   return (
     <DashboardLayout>
-      <h2 className="text-2xl font-bold mb-4">Testimonials Manager</h2>
-      <form onSubmit={handleSubmit} className="space-y-3 mb-6">
-        <input
-          type="text"
-          placeholder="Name"
-          className="p-2 border rounded w-full"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Testimonial"
-          className="p-2 border rounded w-full"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          required
-        />
-        <button
-          type="submit"
-          className="bg-yellow-600 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? 'Uploading...' : 'Add Testimonial'}
-        </button>
-      </form>
+      <div className="text-white">
+        <h2 className="text-2xl font-bold mb-6">Testimonials Manager</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {testimonials.map((t) => (
-          <div key={t.id} className="bg-white p-4 rounded shadow">
-            <img
-              src={t.image_url}
-              alt={t.name}
-              className="w-16 h-16 rounded-full object-cover mb-2 mx-auto"
-            />
-            <h3 className="text-lg font-semibold text-center">{t.name}</h3>
-            <p className="text-sm text-gray-700 mt-2">{t.message}</p>
-            <button
-              onClick={() => deleteTestimonial(t.id)}
-              className="mt-3 text-red-500 text-sm hover:underline block text-center"
+        <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <textarea
+            placeholder="Testimonial"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded"
+          >
+            {loading ? 'Uploading...' : 'Add Testimonial'}
+          </button>
+        </form>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {testimonials.map((t) => (
+            <div
+              key={t.id}
+              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
             >
-              Delete
-            </button>
-          </div>
-        ))}
+              <img
+                src={t.image_url}
+                alt={t.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-3">
+                <h4 className="font-semibold text-white mb-1">{t.name}</h4>
+                <p className="text-white/80 text-sm mb-2">{t.text}</p>
+                <button
+                  onClick={() => deleteTestimonial(t.id)}
+                  className="text-red-400 hover:text-red-600 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </DashboardLayout>
   );

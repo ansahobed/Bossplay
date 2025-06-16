@@ -1,4 +1,3 @@
-// src/admin/pages/GalleryManager.tsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -21,10 +20,9 @@ export default function GalleryManager() {
     if (!error) setImages(data);
   };
 
-  const handleUpload = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return;
-
     setLoading(true);
     try {
       const { secure_url } = await uploadToCloudinary(file);
@@ -45,40 +43,49 @@ export default function GalleryManager() {
 
   return (
     <DashboardLayout>
-      <h2 className="text-2xl font-bold mb-4">Gallery Manager</h2>
+      <div className="text-white">
+        <h2 className="text-2xl font-bold mb-6">Gallery Manager</h2>
 
-      <form onSubmit={handleUpload} className="space-y-3 mb-6">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          required
-        />
-        <button
-          type="submit"
-          className="bg-yellow-600 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? 'Uploading...' : 'Upload Image'}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="mb-8 space-y-4">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded w-full"
+            disabled={loading}
+          >
+            {loading ? 'Uploading...' : 'Upload Image'}
+          </button>
+        </form>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((img) => (
-          <div key={img.id} className="bg-white p-2 rounded shadow">
-            <img
-              src={img.image_url}
-              alt="Gallery"
-              className="w-full h-40 object-cover rounded mb-2"
-            />
-            <button
-              onClick={() => deleteImage(img.id)}
-              className="text-red-500 text-sm hover:underline"
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.map((item) => (
+            <div
+              key={item.id}
+              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
             >
-              Delete
-            </button>
-          </div>
-        ))}
+              <img
+                src={item.image_url}
+                alt="Gallery"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-3 flex justify-between items-center">
+                <p className="text-sm text-white truncate">Image #{item.id}</p>
+                <button
+                  onClick={() => deleteImage(item.id)}
+                  className="text-red-400 hover:text-red-600 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </DashboardLayout>
   );

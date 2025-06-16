@@ -1,36 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { supabase } from '../lib/supabaseClient'; // adjust path if needed
 import 'swiper/css';
 
+interface Partner {
+  id: string;
+  name: string;
+  logo_url: string;
+  website_url?: string;
+}
+
 export function Partners() {
-  const partners = [
-    {
-      name: "Ghana Music Awards",
-      logo: "https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg",
-    },
-    {
-      name: "Afrobeats Festival",
-      logo: "https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg",
-    },
-    {
-      name: "African Music Network",
-      logo: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg",
-    },
-    {
-      name: "Global Sound Records",
-      logo: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
-    },
-    {
-      name: "Tema Music Hub",
-      logo: "https://images.pexels.com/photos/1699159/pexels-photo-1699159.jpeg",
-    },
-    {
-      name: "West Africa Tours",
-      logo: "https://images.pexels.com/photos/5669619/pexels-photo-5669619.jpeg",
-    }
-  ];
+  const [partners, setPartners] = useState<Partner[]>([]);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      const { data, error } = await supabase.from('partners').select('*').order('created_at', { ascending: true });
+      if (error) {
+        console.error('Error fetching partners:', error.message);
+      } else {
+        setPartners(data);
+      }
+    };
+
+    fetchPartners();
+  }, []);
 
   return (
     <section className="section bg-primary">
@@ -67,13 +63,18 @@ export function Partners() {
             }}
             className="partners-swiper"
           >
-            {partners.map((partner, index) => (
-              <SwiperSlide key={index}>
+            {partners.map((partner) => (
+              <SwiperSlide key={partner.id}>
                 <div className="group">
-                  <div className="glow-card p-6 text-center hover:scale-105 transition-transform duration-300">
+                  <a
+                    href={partner.website_url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glow-card p-6 text-center hover:scale-105 transition-transform duration-300 block"
+                  >
                     <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 group-hover:animate-float">
                       <img
-                        src={partner.logo}
+                        src={partner.logo_url}
                         alt={partner.name}
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
@@ -81,7 +82,7 @@ export function Partners() {
                     <h3 className="text-white font-heading font-semibold text-sm">
                       {partner.name}
                     </h3>
-                  </div>
+                  </a>
                 </div>
               </SwiperSlide>
             ))}

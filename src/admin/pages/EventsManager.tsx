@@ -1,4 +1,3 @@
-// src/admin/pages/EventsManager.tsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -20,14 +19,13 @@ export default function EventsManager() {
     const { data, error } = await supabase
       .from('events')
       .select('*')
-      .order('date', { ascending: false });
+      .order('created_at', { ascending: false });
     if (!error) setEvents(data);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !date || !location || !file) return;
-
+    if (!file || !title || !date || !location) return;
     setLoading(true);
     try {
       const { secure_url } = await uploadToCloudinary(file);
@@ -56,65 +54,75 @@ export default function EventsManager() {
 
   return (
     <DashboardLayout>
-      <h2 className="text-2xl font-bold mb-4">Events Manager</h2>
-      <form onSubmit={handleSubmit} className="space-y-3 mb-6">
-        <input
-          type="text"
-          placeholder="Event Title"
-          className="p-2 border rounded w-full"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <input
-          type="date"
-          className="p-2 border rounded w-full"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          className="p-2 border rounded w-full"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          required
-        />
-        <button
-          type="submit"
-          className="bg-yellow-600 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? 'Uploading...' : 'Add Event'}
-        </button>
-      </form>
+      <div className="text-white">
+        <h2 className="text-2xl font-bold mb-6">Events Manager</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {events.map((event) => (
-          <div key={event.id} className="bg-white rounded shadow p-4">
-            <img
-              src={event.image_url}
-              alt={event.title}
-              className="w-full h-48 object-cover rounded mb-2"
-            />
-            <h3 className="text-lg font-semibold">{event.title}</h3>
-            <p className="text-sm text-gray-600">{event.date}</p>
-            <p className="text-sm text-gray-700">{event.location}</p>
-            <button
-              onClick={() => deleteEvent(event.id)}
-              className="mt-2 text-red-500 text-sm hover:underline"
+        <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+          <input
+            type="text"
+            placeholder="Event Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
+            required
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded"
+          >
+            {loading ? 'Uploading...' : 'Add Event'}
+          </button>
+        </form>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {events.map((event) => (
+            <div
+              key={event.id}
+              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
             >
-              Delete
-            </button>
-          </div>
-        ))}
+              <img
+                src={event.image_url}
+                alt={event.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-3 text-white">
+                <h4 className="font-semibold text-lg">{event.title}</h4>
+                <p className="text-white/80 text-sm">
+                  📅 {event.date} <br /> 📍 {event.location}
+                </p>
+                <button
+                  onClick={() => deleteEvent(event.id)}
+                  className="mt-2 text-red-400 hover:text-red-600 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </DashboardLayout>
   );
