@@ -1,18 +1,17 @@
-export const uploadToCloudinary = async (file: File): Promise<string | null> => {
+// src/lib/cloudinary.ts
+export async function uploadToCloudinary(file: File): Promise<{ secure_url: string; resource_type: string }> {
+  const CLOUDINARY_URL = 'cloudinary://<your_api_key>:<your_api_secret>@dqk4ys8ou';
+  const CLOUDINARY_UPLOAD_PRESET = 'bossplay_unsigned';
+
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('upload_preset', 'bossplay_unsigned');
-  formData.append('cloud_name', 'dqk4ys8ou');
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
-  try {
-    const res = await fetch('https://api.cloudinary.com/v1_1/dqk4ys8ou/image/upload', {
-      method: 'POST',
-      body: formData,
-    });
-    const data = await res.json();
-    return data.secure_url;
-  } catch (err) {
-    console.error('Cloudinary upload failed:', err);
-    return null;
-  }
-};
+  const res = await fetch(CLOUDINARY_URL, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) throw new Error('Cloudinary upload failed');
+  return res.json();
+}
