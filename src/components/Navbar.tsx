@@ -37,18 +37,21 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.a
-            href="#"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center space-x-3"
-          >
-            <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center animate-pulse-glow">
-              <Music className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-2xl font-heading font-bold gradient-text">
-              BossPlay 
-            </span>
-          </motion.a>
+  href="#"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  className="flex items-center space-x-3"
+>
+  <img
+    src="https://res.cloudinary.com/dqk4ys8ou/image/upload/v1750088582/masquerade_rj2rju.jpg"
+    alt="BossPlay Logo"
+    className="w-10 h-10 rounded-full object-cover shadow-md"
+  />
+  <span className="text-2xl font-heading font-bold gradient-text">
+    BossPlay
+  </span>
+</motion.a>
+
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
