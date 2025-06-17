@@ -29,6 +29,7 @@ import PartnersManager from './admin/pages/PartnersManager';
 import TestimonialsManager from './admin/pages/TestimonialsManager';
 import EventsManager from './admin/pages/EventsManager';
 import AwardsManager from './admin/pages/AwardsManager';
+import LatestReleasesManager from './admin/pages/LatestReleasesManager'; // 👈 ADD THIS LINE
 
 function HomePage() {
   return (
@@ -115,6 +116,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AwardsManager />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/latest-releases" // 👈 ADD THIS ROUTE
+          element={
+            <ProtectedRoute>
+              <LatestReleasesManager />
             </ProtectedRoute>
           }
         />

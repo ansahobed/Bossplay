@@ -11,6 +11,7 @@ const navItems = [
   { name: 'Testimonials', path: '/admin/testimonials' },
   { name: 'Events', path: '/admin/events' },
   { name: 'Awards', path: '/admin/awards' },
+  { name: 'Latest Releases', path: '/admin/Latest-releases' }, // 👈 New item added
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

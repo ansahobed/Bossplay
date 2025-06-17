@@ -11,6 +11,7 @@ const sections = [
   { title: 'Testimonials', path: '/admin/testimonials' },
   { title: 'Events', path: '/admin/events' },
   { title: 'Awards', path: '/admin/awards' },
+  { title: 'Latest Releases', path: '/admin/LatestReleases' },
 ];
 
 export default function AdminHomePage() {
