@@ -79,9 +79,9 @@ export function AboutUs() {
               <p>
                 <span className="gradient-text font-semibold">Bossplay Music & Masquerade</span> became the first group in the city to pioneer this unique fusion and it wasn’t by chance. It was the result of years of persistence, sleepless nights, and the visionary guidance of <span className="gradient-text font-semibold">Kobby Yankey</span> — a legend in the brassband world whose leadership and experience helped shape our evolution.
               </p>
-              <p>Today, we don’t just perform — we inspire.</p>
+              <p>Today, we don’t just perform  we inspire.</p>
               <p>
-                Bossplay stands as a living example of how <span className="gradient-text font-semibold">vision</span>, <span className="gradient-text font-semibold">hard work</span>, and <span className="gradient-text font-semibold">belief in one’s culture</span> can turn ordinary beginnings into extraordinary legacies. We are entertainers, culture bearers, and innovators — <span className="gradient-text font-semibold">proudly Ghanaian</span>, <span className="gradient-text font-semibold">boldly global</span>.
+                Bossplay stands as a living example of how <span className="gradient-text font-semibold">vision</span>, <span className="gradient-text font-semibold">hard work</span>, and <span className="gradient-text font-semibold">belief in one’s culture</span> can turn ordinary beginnings into extraordinary legacies. We are entertainers, culture bearers, and innovators  <span className="gradient-text font-semibold">proudly Ghanaian</span>, <span className="gradient-text font-semibold">boldly global</span>.
               </p>
               <p className="text-white font-bold italic pt-4 gradient-text">
                 #AsempaYeTsia &nbsp; #OneGodIsEnough &nbsp; #TheInvictus
