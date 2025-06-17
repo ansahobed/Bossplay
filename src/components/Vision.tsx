@@ -16,7 +16,8 @@ export function Vision() {
               Our Vision
             </h2>
             <p className="text-xl text-white/80 mb-8">
-              To redefine luxury through sound, creating timeless musical experiences that resonate with elegance, innovation, and soul.
+               To become a leading cultural and musical group in Ghana and beyond preserving heritage while innovating entertainment.
+              
             </p>
             <h3 className="text-2xl md:text-3xl font-serif font-bold text-primary-gold mb-4">
               Our Mission

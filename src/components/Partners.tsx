@@ -149,7 +149,7 @@ export function Partners() {
                 <h4 className="text-lg font-semibold text-pink-400 mb-2">Partner Contact Info</h4>
                 <p><strong>Contact Person:</strong> Mr. Kobby Yankey (Chief Executive Officer)</p>
                 <p className="flex items-center gap-2">
-                  
+
                   <strong>Phone:</strong>
                   <a
                     href="https://wa.me/233276293017"
@@ -160,7 +160,7 @@ export function Partners() {
                     +233 24 987 6543 <MessageCircle className="w-4 h-4" />
                   </a>
                 </p>
-                <p><strong>Email:</strong> Bossplaygh@gmail.com</p>
+                <p><strong>Email:</strong> kobbyyankey3017@gmail.com</p>
               </motion.div>
             </div>
           )}
