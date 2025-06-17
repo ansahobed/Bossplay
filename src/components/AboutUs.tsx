@@ -127,7 +127,7 @@ export function AboutUs() {
           >
             <h3 className="text-2xl font-bold gradient-text mb-2">Our Vision</h3>
             <p className="text-white/70 text-base">
-              To become a leading cultural and musical group in Ghana and beyond — preserving heritage while innovating entertainment.
+              To become a leading cultural and musical group in Ghana and beyond  preserving heritage while innovating entertainment.
             </p>
           </motion.div>
 
