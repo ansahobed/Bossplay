@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { supabase } from '../lib/supabaseClient';
+import { MessageCircle } from 'lucide-react'; // WhatsApp-style icon
 import 'swiper/css';
 
 interface Partner {
@@ -14,6 +15,7 @@ interface Partner {
 
 export function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
+  const [showContact, setShowContact] = useState(false);
 
   useEffect(() => {
     const fetchPartners = async () => {
@@ -34,6 +36,7 @@ export function Partners() {
   return (
     <section className="section bg-primary">
       <div className="container">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -44,10 +47,11 @@ export function Partners() {
             <span className="gradient-text">Our Partners</span>
           </h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
-            Collaborating with industry leaders to bring you the best musical experiences
+            Collaborating with industry leaders to bring you the best musical & cultural experiences.
           </p>
         </motion.div>
 
+        {/* Slider */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,6 +96,7 @@ export function Partners() {
           </Swiper>
         </motion.div>
 
+        {/* Become a Partner Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,9 +106,64 @@ export function Partners() {
           <p className="text-white/60 mb-8">
             Interested in partnering with us?
           </p>
-          <button className="btn btn-outline">
+          <button
+            className="btn btn-outline"
+            onClick={() => setShowContact(!showContact)}
+          >
             Become a Partner
           </button>
+
+          {showContact && (
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Contact 1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-white/5 p-6 rounded-xl shadow-xl backdrop-blur-md text-white text-left border border-white/10"
+              >
+                <h4 className="text-lg font-semibold text-pink-400 mb-2">Partner Contact Info</h4>
+                <p><strong>Contact Person:</strong> Mr. Smart Wages (Programs/Partnership Manager)</p>
+                <p className="flex items-center gap-2">
+                  <strong>Phone:</strong>
+                  <a
+                    href="https://wa.me/233242581363" 
+          
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-400 flex items-center gap-1"
+                  >
+                    +233 55 123 4567 <MessageCircle className="w-4 h-4" />
+                  </a>
+                </p>
+                <p><strong>Email:</strong> bossplaygh@gmail.com</p>
+              </motion.div>
+
+              {/* Contact 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-white/5 p-6 rounded-xl shadow-xl backdrop-blur-md text-white text-left border border-white/10"
+              >
+                <h4 className="text-lg font-semibold text-pink-400 mb-2">Partner Contact Info</h4>
+                <p><strong>Contact Person:</strong> Mr. Kobby Yankey (Chief Executive Officer)</p>
+                <p className="flex items-center gap-2">
+                  
+                  <strong>Phone:</strong>
+                  <a
+                    href="https://wa.me/233276293017"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-400 flex items-center gap-1"
+                  >
+                    +233 24 987 6543 <MessageCircle className="w-4 h-4" />
+                  </a>
+                </p>
+                <p><strong>Email:</strong> Bossplaygh@gmail.com</p>
+              </motion.div>
+            </div>
+          )}
         </motion.div>
       </div>
     </section>
