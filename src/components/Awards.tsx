@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { awards } from '../data';
+import { supabase } from '../lib/supabaseClient';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+interface Award {
+  id: string;
+  title: string;
+  organization: string;
+  icon: string;
+}
 
 export function Awards() {
+  const [awards, setAwards] = useState<Award[]>([]);
+
+  useEffect(() => {
+    fetchAwards();
+  }, []);
+
+  const fetchAwards = async () => {
+    const { data, error } = await supabase
+      .from('awards')
+      .select('id, title, organization, icon')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      setAwards(data);
+    } else {
+      console.error('Error fetching awards:', error);
+    }
+  };
+
   return (
     <section
       id="awards"
       className="section scroll-mt-24 bg-primary section-glow"
     >
       <div className="container">
-        {/* Section Header (styled like Partners) */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -25,24 +55,35 @@ export function Awards() {
           </p>
         </motion.div>
 
-        {/* Awards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        {/* Awards Slider */}
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={20}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
           {awards.map((award, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glow-card text-center p-6 sm:p-8 transition-all duration-300 hover:border-primary-gold/50"
-            >
-              <div className="text-5xl mb-4 text-primary-gold">{award.icon}</div>
-              <h3 className="text-xl font-semibold font-serif text-primary-gold mb-2">
-                {award.title}
-              </h3>
-              <p className="text-white/70 text-sm">{award.organization}</p>
-            </motion.div>
+            <SwiperSlide key={award.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glow-card text-center p-6 sm:p-8 transition-all duration-300 hover:border-primary-gold/50"
+              >
+                <div className="text-5xl mb-4 text-primary-gold">{award.icon}</div>
+                <h3 className="text-xl font-semibold font-serif text-primary-gold mb-2">
+                  {award.title}
+                </h3>
+                <p className="text-white/70 text-sm">{award.organization}</p>
+              </motion.div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </section>
   );
