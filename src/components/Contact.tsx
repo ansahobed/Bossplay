@@ -1,26 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Instagram,
-  Youtube,
-  Facebook,
-  Twitter,
-  Send
-} from 'lucide-react';
-
-const TikTokIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="white"
-    viewBox="0 0 24 24"
-    className="w-5 h-5"
-  >
-    <path d="M12.766 2c.21 1.87 1.438 3.438 3.058 3.938.592.187 1.224.277 1.846.308v3.253a7.947 7.947 0 01-3.06-.726v6.3c0 2.955-2.378 5.353-5.31 5.353A5.332 5.332 0 014.99 14.79a5.33 5.33 0 015.31-5.348c.284 0 .568.027.841.084v3.26a2.062 2.062 0 00-.84-.178 2.06 2.06 0 00-2.065 2.065c0 1.13.935 2.065 2.065 2.065 1.128 0 2.064-.935 2.064-2.065V2h1.401z" />
-  </svg>
-);
+import { Mail, Phone, MapPin, Instagram, Youtube, Facebook, Twitter, Send } from 'lucide-react';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -31,10 +11,25 @@ export function Contact() {
     message: ''
   });
 
+  const [success, setSuccess] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // You can connect this to EmailJS, Formspree or Supabase here
+
+    setSuccess(true); // show success message
+
+    // Reset form
+    setFormData({
+      fullName: '',
+      email: '',
+      phone: '',
+      inquiry: '',
+      message: ''
+    });
+
+    // Hide message after 5 seconds
+    setTimeout(() => setSuccess(false), 5000);
   };
 
   const handleChange = (
@@ -59,7 +54,7 @@ export function Contact() {
             <span className="gradient-text">Get In Touch</span>
           </h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
-            Ready to create something amazing together? Let's talk about your next musical project.
+            Ready to create something amazing together? Let's talk about your next musical project
           </p>
         </motion.div>
 
@@ -74,6 +69,7 @@ export function Contact() {
               <h3 className="text-2xl font-heading font-bold text-white mb-6">
                 Send us a message
               </h3>
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="fullName" className="block text-white/80 mb-2">
@@ -89,6 +85,7 @@ export function Contact() {
                     required
                   />
                 </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="email" className="block text-white/80 mb-2">
@@ -163,19 +160,27 @@ export function Contact() {
                   <Send className="w-5 h-5" />
                   <span>Send Message</span>
                 </button>
+
+                {success && (
+                  <p className="text-green-400 text-center pt-4 font-medium">
+                    Message sent successfully!
+                  </p>
+                )}
               </form>
             </div>
           </motion.div>
 
-          {/* Contact Info and Map */}
+          {/* Contact Info & Map */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
+            {/* Contact Details */}
             <div className="glow-card p-8">
               <h3 className="text-2xl font-heading font-bold text-white mb-6">Contact Details</h3>
+
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
@@ -186,44 +191,61 @@ export function Contact() {
                     <p className="text-white font-medium">Bossplaygh@gmail.com</p>
                   </div>
                 </div>
+
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">Phone</p>
-                    <p className="text-white font-medium">+233 24 258 1363 / +233 53 077 3488</p>
+                    <p className="text-white font-medium">
+                      +233 24 258 1363 / +233 53 077 3488
+                    </p>
                   </div>
                 </div>
+
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">Address</p>
-                    <p className="text-white font-medium">Apollo/Dupaul House No. (66)<br />Takoradi, Ghana</p>
+                    <p className="text-white font-medium">
+                      Apollo/Dupaul House No. (66)
+                      <br />
+                      Takoradi, Ghana
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* Socials */}
+              {/* Social Links */}
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-white/80 mb-4">Follow us on social media</p>
                 <div className="flex space-x-4">
-                  <a href="https://www.instagram.com/bossplaymusic/" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                  >
                     <Instagram className="w-5 h-5 text-white" />
                   </a>
-                  <a href="https://www.youtube.com/@bossplaymusic3334" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                  >
                     <Youtube className="w-5 h-5 text-white" />
                   </a>
-                  <a href="https://www.facebook.com/share/1BUd8EEovJ/" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                  >
                     <Facebook className="w-5 h-5 text-white" />
                   </a>
-                  <a href="https://x.com/bossplay_music" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                  >
                     <Twitter className="w-5 h-5 text-white" />
-                  </a>
-                  <a href="https://www.tiktok.com/@bossplaycity?_t=ZM-8wYI6ufFRHM&_r=1" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                    <TikTokIcon />
                   </a>
                 </div>
               </div>
