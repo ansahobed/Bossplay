@@ -1,6 +1,26 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Youtube, Facebook, Twitter, Send } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Instagram,
+  Youtube,
+  Facebook,
+  Twitter,
+  Send
+} from 'lucide-react';
+
+const TikTokIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="white"
+    viewBox="0 0 24 24"
+    className="w-5 h-5"
+  >
+    <path d="M12.766 2c.21 1.87 1.438 3.438 3.058 3.938.592.187 1.224.277 1.846.308v3.253a7.947 7.947 0 01-3.06-.726v6.3c0 2.955-2.378 5.353-5.31 5.353A5.332 5.332 0 014.99 14.79a5.33 5.33 0 015.31-5.348c.284 0 .568.027.841.084v3.26a2.062 2.062 0 00-.84-.178 2.06 2.06 0 00-2.065 2.065c0 1.13.935 2.065 2.065 2.065 1.128 0 2.064-.935 2.064-2.065V2h1.401z" />
+  </svg>
+);
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -13,11 +33,13 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log('Form submitted:', formData);
+    // You can connect this to EmailJS, Formspree or Supabase here
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -37,7 +59,7 @@ export function Contact() {
             <span className="gradient-text">Get In Touch</span>
           </h2>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
-            Ready to create something amazing together? Let's talk about your next musical project
+            Ready to create something amazing together? Let's talk about your next musical project.
           </p>
         </motion.div>
 
@@ -52,7 +74,6 @@ export function Contact() {
               <h3 className="text-2xl font-heading font-bold text-white mb-6">
                 Send us a message
               </h3>
-              
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="fullName" className="block text-white/80 mb-2">
@@ -68,7 +89,6 @@ export function Contact() {
                     required
                   />
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="email" className="block text-white/80 mb-2">
@@ -147,19 +167,15 @@ export function Contact() {
             </div>
           </motion.div>
 
-          {/* Contact Info & Map */}
+          {/* Contact Info and Map */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            {/* Contact Details */}
             <div className="glow-card p-8">
-              <h3 className="text-2xl font-heading font-bold text-white mb-6">
-                Contact Details
-              </h3>
-              
+              <h3 className="text-2xl font-heading font-bold text-white mb-6">Contact Details</h3>
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
@@ -170,17 +186,15 @@ export function Contact() {
                     <p className="text-white font-medium">Bossplaygh@gmail.com</p>
                   </div>
                 </div>
-
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">Phone</p>
-                    <p className="text-white font-medium">+233 24 258 1363 / +233 53 077 3488 </p>
+                    <p className="text-white font-medium">+233 24 258 1363 / +233 53 077 3488</p>
                   </div>
                 </div>
-
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-white" />
@@ -192,21 +206,24 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Social Links */}
+              {/* Socials */}
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-white/80 mb-4">Follow us on social media</p>
                 <div className="flex space-x-4">
-                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a href="https://www.instagram.com/bossplaymusic/" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Instagram className="w-5 h-5 text-white" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a href="https://www.youtube.com/@bossplaymusic3334" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Youtube className="w-5 h-5 text-white" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a href="https://www.facebook.com/share/1BUd8EEovJ/" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Facebook className="w-5 h-5 text-white" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                  <a href="https://x.com/bossplay_music" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Twitter className="w-5 h-5 text-white" />
+                  </a>
+                  <a href="https://www.tiktok.com/@bossplaycity?_t=ZM-8wYI6ufFRHM&_r=1" target="_blank" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                    <TikTokIcon />
                   </a>
                 </div>
               </div>
@@ -214,27 +231,26 @@ export function Contact() {
 
             {/* Google Map */}
             <div className="glow-card p-2 overflow-hidden">
-  <div className="w-full h-80 rounded-lg overflow-hidden relative">
-    <a
-      href="https://www.google.com/maps/dir/?api=1&destination=Kingstel+Hotel,+Takoradi+Ghana"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="absolute inset-0 z-10"
-      aria-label="Open directions to Kingstel Hotel"
-    ></a>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.542412203393!2d-1.756398!3d4.904420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdabdf80d986b3c7%3A0x6b3091e6243d2b67!2sKingstel%20Hotel!5e0!3m2!1sen!2sgh!4v1717929789023!5m2!1sen!2sgh"
-      width="100%"
-      height="100%"
-      style={{ border: 0 }}
-      allowFullScreen
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-      title="Kingstel Hotel Apollo Takoradi"
-    ></iframe>
-  </div>
-</div>
-
+              <div className="w-full h-80 rounded-lg overflow-hidden relative">
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Kingstel+Hotel,+Takoradi+Ghana"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 z-10"
+                  aria-label="Open directions to Kingstel Hotel"
+                ></a>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.542412203393!2d-1.756398!3d4.904420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdabdf80d986b3c7%3A0x6b3091e6243d2b67!2sKingstel%20Hotel!5e0!3m2!1sen!2sgh!4v1717929789023!5m2!1sen!2sgh"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Kingstel Hotel Apollo Takoradi"
+                ></iframe>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
