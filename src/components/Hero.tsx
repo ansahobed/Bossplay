@@ -6,6 +6,7 @@ import { Play, Calendar, Music } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
+import { supabase } from '../lib/supabaseClient';
 
 function calculateTimeLeft(targetDate: Date) {
   const now = new Date().getTime();
@@ -21,50 +22,60 @@ function calculateTimeLeft(targetDate: Date) {
   };
 }
 
-export function Hero() {
-  const events = [
-    { id: 1, title: 'Accra Music Festival', date: new Date('2025-07-15T20:00:00') },
-    { id: 2, title: 'Studio Album Release', date: new Date('2025-08-01T18:00:00') },
-    { id: 3, title: 'Global Tour Kickoff', date: new Date('2025-09-10T19:30:00') },
-  ];
+interface EventData {
+  id: number;
+  title: string;
+  start_date: string; // ISO format
+}
 
-  const [upcomingEvent, setUpcomingEvent] = useState<{ id: number; title: string; date: Date } | null>(null);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+export function Hero() {
+  const [upcomingEvent, setUpcomingEvent] = useState<EventData | null>(null);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isShrunk, setIsShrunk] = useState(false);
 
+  const fetchNextEvent = async () => {
+    const now = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from('events')
+      .select('id, title, start_date')
+      .gte('start_date', now)
+      .order('start_date', { ascending: true })
+      .limit(1);
+
+    if (error) {
+      console.error('Error fetching event:', error);
+      return;
+    }
+
+    if (data && data.length > 0) {
+      setUpcomingEvent(data[0]);
+    } else {
+      setUpcomingEvent(null);
+    }
+  };
+
   useEffect(() => {
+    fetchNextEvent();
+
     const timer = setInterval(() => {
-      const now = new Date();
-      const nextEvent = events
-        .filter((event) => event.date > now)
-        .sort((a, b) => a.date.getTime() - b.date.getTime())[0] || null;
+      if (upcomingEvent) {
+        const targetDate = new Date(upcomingEvent.start_date);
+        const newTimeLeft = calculateTimeLeft(targetDate);
 
-      setUpcomingEvent(nextEvent);
-
-      if (nextEvent) {
-        const newTimeLeft = calculateTimeLeft(nextEvent.date);
         if (newTimeLeft) {
           setTimeLeft(newTimeLeft);
         } else {
           setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         }
-      } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [upcomingEvent]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsShrunk(window.scrollY > 80);
-    };
+    const handleScroll = () => setIsShrunk(window.scrollY > 80);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
