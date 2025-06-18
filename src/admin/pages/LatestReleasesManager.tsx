@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
 import DashboardLayout from '../layout/DashboardLayout';
+import { Trash2 } from 'lucide-react';
 
 export default function LatestReleasesManager() {
   const [releases, setReleases] = useState<any[]>([]);
@@ -22,8 +23,8 @@ export default function LatestReleasesManager() {
     const { data, error } = await supabase
       .from('latest_releases')
       .select('*')
-      .order('created_at', { ascending: false });
-    if (!error) setReleases(data);
+      .order('release_date', { ascending: false }); // Sort by actual release date
+    if (!error) setReleases(data || []);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,85 +64,92 @@ export default function LatestReleasesManager() {
 
   return (
     <DashboardLayout>
-      <div className="text-white">
-        <h2 className="text-2xl font-bold mb-6">Latest Releases Manager</h2>
+      <div className="text-white px-4 py-6">
+        <h2 className="text-3xl font-bold mb-8">🎵 Manage Latest Releases</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Artist"
-            value={artist}
-            onChange={(e) => setArtist(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-            required
-          />
-          <input
-            type="date"
-            value={releaseDate}
-            onChange={(e) => setReleaseDate(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-            required
-          />
-          <input
-            type="url"
-            placeholder="AudioMack Link"
-            value={audioLink}
-            onChange={(e) => setAudioLink(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-          />
-          <input
-            type="url"
-            placeholder="Apple Music Link"
-            value={appleLink}
-            onChange={(e) => setAppleLink(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-          />
-          <input
-            type="url"
-            placeholder="Boomplay Link"
-            value={boomplayLink}
-            onChange={(e) => setBoomplayLink(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded"
-            required
-          />
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gray-900 p-6 rounded-2xl border border-white/10 shadow-lg space-y-4 mb-10"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              placeholder="Release Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Artist"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+              required
+            />
+            <input
+              type="date"
+              value={releaseDate}
+              onChange={(e) => setReleaseDate(e.target.value)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+              required
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+              required
+            />
+            <input
+              type="url"
+              placeholder="AudioMack Link"
+              value={audioLink}
+              onChange={(e) => setAudioLink(e.target.value)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+            />
+            <input
+              type="url"
+              placeholder="Apple Music Link"
+              value={appleLink}
+              onChange={(e) => setAppleLink(e.target.value)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+            />
+            <input
+              type="url"
+              placeholder="Boomplay Link"
+              value={boomplayLink}
+              onChange={(e) => setBoomplayLink(e.target.value)}
+              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white"
+            />
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded"
+            className="w-full bg-gradient-to-r from-pink-600 to-pink-800 hover:opacity-90 text-white font-semibold py-3 rounded-xl transition"
           >
             {loading ? 'Uploading...' : 'Add Release'}
           </button>
         </form>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {releases.map((release) => (
             <div
               key={release.id}
-              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+              className="bg-[#111] rounded-2xl overflow-hidden shadow-md border border-white/10 hover:shadow-lg transition-shadow duration-300"
             >
               <img
                 src={release.image_url}
                 alt={release.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-3 text-white">
-                <h4 className="font-semibold text-lg">{release.title}</h4>
-                <p className="text-white/80 text-sm">{release.artist}</p>
-                <div className="mt-2 space-x-2 text-sm">
+              <div className="p-4 space-y-2">
+                <h4 className="text-xl font-bold">{release.title}</h4>
+                <p className="text-sm text-white/80">{release.artist}</p>
+                <p className="text-xs text-white/50">🎧 Released: {release.release_date}</p>
+                <div className="mt-2 flex flex-wrap gap-2 text-sm">
                   {release.audiomack_url && (
                     <a
                       href={release.audiomack_url}
@@ -175,8 +183,9 @@ export default function LatestReleasesManager() {
                 </div>
                 <button
                   onClick={() => deleteRelease(release.id)}
-                  className="mt-2 text-red-400 hover:text-red-600 text-sm"
+                  className="mt-2 inline-flex items-center gap-2 text-red-400 hover:text-red-600 text-sm transition"
                 >
+                  <Trash2 className="w-4 h-4" />
                   Delete
                 </button>
               </div>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
 import DashboardLayout from '../layout/DashboardLayout';
+import { Trash2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function HeroSliderManager() {
   const [slides, setSlides] = useState<any[]>([]);
@@ -48,55 +50,67 @@ export default function HeroSliderManager() {
 
   return (
     <DashboardLayout>
-      <div className="text-white">
-        <h2 className="text-2xl font-bold mb-6">Hero Slider Manager</h2>
+      <div className="text-white px-4 py-6 space-y-10">
+        <h2 className="text-3xl font-bold text-pink-500 tracking-tight">🎞️ Hero Slider Manager</h2>
 
-        <form onSubmit={handleSubmit} className="mb-8 space-y-4">
-          <input
-            type="text"
-            placeholder="Slide Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
-            required
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-            className="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white"
-            required
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded w-full"
-          >
-            {loading ? 'Uploading...' : 'Add Slide'}
-          </button>
+        {/* Upload Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-[#111] border border-white/10 p-6 rounded-2xl shadow-xl space-y-4"
+        >
+          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+            <input
+              type="text"
+              placeholder="Slide Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="flex-1 bg-black text-white p-3 rounded-lg border border-white/10 placeholder-white/40"
+              required
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              className="flex-1 bg-black text-white p-3 rounded-lg border border-white/10"
+              required
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-gradient-to-r from-pink-600 to-pink-800 hover:opacity-90 text-white font-semibold px-6 py-3 rounded-lg transition w-full md:w-auto"
+            >
+              {loading ? 'Uploading...' : 'Add Slide'}
+            </button>
+          </div>
         </form>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {slides.map((slide) => (
-            <div
+        {/* Slides Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {slides.map((slide, index) => (
+            <motion.div
               key={slide.id}
-              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="bg-[#111] border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition"
             >
               <img
                 src={slide.image_url}
                 alt={slide.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-3 flex justify-between items-center">
-                <p className="text-sm text-white truncate">{slide.title}</p>
+              <div className="p-4 flex justify-between items-center">
+                <p className="text-white text-sm font-medium truncate">{slide.title}</p>
                 <button
                   onClick={() => deleteSlide(slide.id)}
-                  className="text-red-400 hover:text-red-600 text-sm"
+                  className="flex items-center gap-1 text-red-400 hover:text-red-600 text-sm"
                 >
+                  <Trash2 size={16} />
                   Delete
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

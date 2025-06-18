@@ -51,48 +51,48 @@ export default function AwardsManager() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-10">
-        <h2 className="text-3xl font-bold text-accent-fuchsia">Awards & Recognitions</h2>
+      <div className="text-white px-4 py-6 space-y-10">
+        <h2 className="text-3xl font-bold text-pink-500 tracking-tight">🏅 Awards & Recognitions</h2>
 
-        {/* Form */}
+        {/* Award Form */}
         <form
           onSubmit={handleSubmit}
-          className="bg-neutral-900 p-6 rounded-xl border border-neutral-700 space-y-4"
+          className="bg-[#111] border border-white/10 p-6 rounded-2xl shadow-xl space-y-6"
         >
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="flex flex-col space-y-2">
-              <label className="text-sm text-neutral-300">Award Title</label>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-white/70">Award Title</label>
               <input
                 type="text"
                 placeholder="e.g. Winner - Brassband 2023"
-                className="bg-black text-white p-3 rounded-md border border-neutral-600"
+                className="bg-black text-white p-3 rounded-lg border border-white/10 placeholder-white/40"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
               />
             </div>
 
-            <div className="flex flex-col space-y-2">
-              <label className="text-sm text-neutral-300">Organization</label>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-white/70">Organization</label>
               <input
                 type="text"
                 placeholder="e.g. Ebony/Skyy Media"
-                className="bg-black text-white p-3 rounded-md border border-neutral-600"
+                className="bg-black text-white p-3 rounded-lg border border-white/10 placeholder-white/40"
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
                 required
               />
             </div>
 
-            <div className="flex flex-col space-y-2">
-              <label className="text-sm text-neutral-300">Select Emoji Icon</label>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-white/70">Emoji Icon</label>
               <select
-                className="bg-black text-white p-3 rounded-md border border-neutral-600"
+                className="bg-black text-white p-3 rounded-lg border border-white/10"
                 value={icon}
                 onChange={(e) => setIcon(e.target.value)}
                 required
               >
-                <option value="">-- Select Emoji Icon --</option>
+                <option value="">-- Select Icon --</option>
                 <option value="🏆">🏆 Trophy</option>
                 <option value="🎵">🎵 Music Note</option>
                 <option value="🌟">🌟 Star</option>
@@ -107,33 +107,36 @@ export default function AwardsManager() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-accent-fuchsia hover:bg-fuchsia-700 text-white px-6 py-2 rounded-md transition-all"
+            className="bg-gradient-to-r from-pink-600 to-pink-800 hover:opacity-90 text-white font-semibold py-3 px-6 rounded-xl w-full md:w-auto transition"
           >
             {loading ? 'Saving...' : 'Add Award'}
           </button>
         </form>
 
-        {/* Display Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+        {/* Awards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {awards.map((award, index) => (
             <motion.div
               key={award.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-neutral-900 border border-neutral-700 rounded-2xl p-4 glow-card hover:scale-[1.03] transition-transform duration-300"
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="bg-[#111] border border-white/10 p-5 rounded-2xl shadow-md hover:shadow-lg transition group"
             >
-              <div className="text-center space-y-1">
-                <p className="text-3xl mb-2">{award.icon}</p>
-                <p className="text-lg font-semibold text-white">{award.title}</p>
-                <p className="text-sm text-neutral-400 italic">Organized by {award.organization}</p>
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="text-4xl mb-1">{award.icon}</div>
+                <h3 className="text-lg font-bold text-white">{award.title}</h3>
+                <p className="text-sm text-white/60 italic">
+                  by {award.organization}
+                </p>
               </div>
-              <div className="flex justify-center mt-3">
+              <div className="flex justify-center mt-4">
                 <button
                   onClick={() => deleteAward(award.id)}
-                  className="flex items-center gap-1 text-sm text-red-400 hover:text-red-500 transition"
+                  className="inline-flex items-center gap-1 text-red-400 hover:text-red-600 text-sm transition"
                 >
-                  <Trash2 size={14} />
+                  <Trash2 size={16} />
                   Delete
                 </button>
               </div>
