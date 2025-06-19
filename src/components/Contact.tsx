@@ -216,7 +216,7 @@ export function Contact() {
                   <div>
                     <p className="text-white/60 text-sm">Phone</p>
                     <p className="text-white font-medium">
-                      +233 24 258 1363 / +233 53 077 3488
+                      +233 24 258 1363 / +233 53 077 3488 / +233 54 999 3624
                     </p>
                   </div>
                 </div>
