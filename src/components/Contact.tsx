@@ -260,27 +260,28 @@ export function Contact() {
             </div>
 
             {/* Google Map */}
-            <div className="glow-card p-2 overflow-hidden">
-              <div className="w-full h-80 rounded-lg overflow-hidden relative">
-                <a
-                  href="https://www.google.com/maps/dir/?api=1&destination=Kingstel+Hotel,+Takoradi+Ghana"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute inset-0 z-10"
-                  aria-label="Open directions to Kingstel Hotel"
-                ></a>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.542412203393!2d-1.756398!3d4.904420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdabdf80d986b3c7%3A0x6b3091e6243d2b67!2sKingstel%20Hotel!5e0!3m2!1sen!2sgh!4v1717929789023!5m2!1sen!2sgh"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Kingstel Hotel Apollo Takoradi"
-                ></iframe>
-              </div>
-            </div>
+<div className="glow-card p-2 overflow-hidden">
+  <div className="w-full h-80 rounded-lg overflow-hidden relative">
+    <a
+      href="https://www.google.com/maps/dir/?api=1&destination=Traceés+Wellness+%26+Beauty+Spa"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="absolute inset-0 z-10"
+      aria-label="Bossplay HeadQuaters"
+    ></a>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.2438133478026!2d-1.7917142031446867!3d4.898806653760776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfe779f067e38f8b%3A0x3c9376ee0c9a6b15!2sTrace%C3%A9s%20Wellness%20%26%20Beauty%20Spa!5e0!3m2!1sen!2sgh!4v1750351436668!5m2!1sen!2sgh"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      title="Bossplay"
+    ></iframe>
+  </div>
+</div>
+
           </motion.div>
         </div>
       </div>
