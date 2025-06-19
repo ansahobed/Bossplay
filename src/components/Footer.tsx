@@ -22,7 +22,7 @@ export function Footer() {
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-white">
                 <img
-                  src="https://res.cloudinary.com/dqk4ys8ou/image/upload/v1750088582/masquerade_rj2rju.jpg"
+                  src="https://res.cloudinary.com/dqk4ys8ou/image/upload/v1750332208/bossplay-images/music_m52ze3.jpg"
                   alt="BossPlay Logo"
                   className="w-full h-full object-cover"
                 />

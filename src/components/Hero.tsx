@@ -7,20 +7,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import { supabase } from '../lib/supabaseClient';
-
-function calculateTimeLeft(targetDate: Date) {
-  const now = new Date().getTime();
-  const distance = targetDate.getTime() - now;
-
-  if (distance < 0) return null;
-
-  return {
-    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-    minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-    seconds: Math.floor((distance % (1000 * 60)) / 1000),
-  };
-}
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 interface EventData {
   id: number;
@@ -35,7 +24,6 @@ export function Hero() {
 
   const fetchNextEvent = async () => {
     const now = new Date().toISOString();
-
     const { data, error } = await supabase
       .from('events')
       .select('id, title, start_date')
@@ -57,19 +45,31 @@ export function Hero() {
 
   useEffect(() => {
     fetchNextEvent();
+  }, []);
 
-    const timer = setInterval(() => {
-      if (upcomingEvent) {
-        const targetDate = new Date(upcomingEvent.start_date);
-        const newTimeLeft = calculateTimeLeft(targetDate);
+  useEffect(() => {
+    if (!upcomingEvent) return;
 
-        if (newTimeLeft) {
-          setTimeLeft(newTimeLeft);
-        } else {
-          setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        }
+    const updateCountdown = () => {
+      const now = dayjs();
+      const eventTime = dayjs(upcomingEvent.start_date);
+      const diff = eventTime.diff(now);
+
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
       }
-    }, 1000);
+
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    };
+
+    updateCountdown(); // immediately update first
+    const timer = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(timer);
   }, [upcomingEvent]);
@@ -101,9 +101,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className={`relative overflow-hidden transition-all duration-500 ease-in-out ${
-        isShrunk ? 'h-[70vh]' : 'h-screen'
-      }`}
+      className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isShrunk ? 'h-[70vh]' : 'h-screen'}`}
     >
       <div className="hero-glow absolute inset-0 z-10"></div>
 

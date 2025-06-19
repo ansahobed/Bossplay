@@ -1,6 +1,27 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Youtube, Facebook, Twitter, Send } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Instagram,
+  Youtube,
+  Facebook,
+  Twitter,
+  Send,
+} from 'lucide-react';
+
+// ✅ Custom TikTok Icon Component
+const TikTokIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="white"
+    viewBox="0 0 24 24"
+    className="w-5 h-5"
+  >
+    <path d="M12.766 2c.21 1.87 1.438 3.438 3.058 3.938.592.187 1.224.277 1.846.308v3.253a7.947 7.947 0 01-3.06-.726v6.3c0 2.955-2.378 5.353-5.31 5.353A5.332 5.332 0 014.99 14.79a5.33 5.33 0 015.31-5.348c.284 0 .568.027.841.084v3.26a2.062 2.062 0 00-.84-.178 2.06 2.06 0 00-2.065 2.065c0 1.13.935 2.065 2.065 2.065 1.128 0 2.064-.935 2.064-2.065V2h1.401z" />
+  </svg>
+);
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -8,7 +29,7 @@ export function Contact() {
     email: '',
     phone: '',
     inquiry: '',
-    message: ''
+    message: '',
   });
 
   const [success, setSuccess] = useState(false);
@@ -16,19 +37,16 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
+    setSuccess(true);
 
-    setSuccess(true); // show success message
-
-    // Reset form
     setFormData({
       fullName: '',
       email: '',
       phone: '',
       inquiry: '',
-      message: ''
+      message: '',
     });
 
-    // Hide message after 5 seconds
     setTimeout(() => setSuccess(false), 5000);
   };
 
@@ -37,7 +55,7 @@ export function Contact() {
   ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -177,7 +195,6 @@ export function Contact() {
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            {/* Contact Details */}
             <div className="glow-card p-8">
               <h3 className="text-2xl font-heading font-bold text-white mb-6">Contact Details</h3>
 
@@ -219,33 +236,24 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Social Links */}
+              {/* Social Icons including TikTok */}
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-white/80 mb-4">Follow us on social media</p>
                 <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
-                  >
+                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Instagram className="w-5 h-5 text-white" />
                   </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
-                  >
+                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Youtube className="w-5 h-5 text-white" />
                   </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
-                  >
+                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Facebook className="w-5 h-5 text-white" />
                   </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
-                  >
+                  <a href="#" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                     <Twitter className="w-5 h-5 text-white" />
+                  </a>
+                  <a href="https://www.tiktok.com/@bossplaycity?_t=ZM-8wYI6ufFRHM&_r=1" className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                    <TikTokIcon />
                   </a>
                 </div>
               </div>
