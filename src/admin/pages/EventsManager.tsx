@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
 import DashboardLayout from '../layout/DashboardLayout';
-import { Calendar, MapPin, Trash2, ImagePlus, LinkIcon } from 'lucide-react';
+import { Calendar, MapPin, Trash2, ImagePlus, LinkIcon, Activity, History, Star, Sun } from 'lucide-react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 export default function EventsManager() {
   const [events, setEvents] = useState<any[]>([]);
@@ -16,7 +18,7 @@ export default function EventsManager() {
   const [ticketLink, setTicketLink] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState<'upcoming' | 'ongoing' | 'past' | 'today'>('upcoming');
+  const [tab, setTab] = useState<'all' | 'upcoming' | 'ongoing' | 'past' | 'today'>('all');
 
   useEffect(() => {
     fetchEvents();
@@ -26,7 +28,7 @@ export default function EventsManager() {
     const { data, error } = await supabase
       .from('events')
       .select('*')
-      .order('date', { ascending: true });
+      .order('start_date', { ascending: true });
     if (!error) setEvents(data || []);
   };
 
@@ -41,7 +43,7 @@ export default function EventsManager() {
 
       await supabase.from('events').insert({
         title,
-        date: startDateTime,
+        start_date: startDateTime,
         end_date: endDateTime,
         venue,
         ticketLink: ticketLink || null,
@@ -69,26 +71,31 @@ export default function EventsManager() {
   };
 
   const now = dayjs();
-
-  const getStatus = (event: any) => {
-    const start = dayjs(event.date);
+  const getStatus = (event: any): 'upcoming' | 'ongoing' | 'past' | 'today' => {
+    const start = dayjs(event.start_date);
     const end = event.end_date ? dayjs(event.end_date) : null;
 
-    if (start.isSame(now, 'day') && (!end || end.isSame(now, 'day'))) return 'Today';
-    if (end && now.isAfter(start) && now.isBefore(end)) return 'Ongoing';
-    if (now.isBefore(start)) return 'Upcoming';
-    return 'Past';
+    if (start.isSame(now, 'day') && (!end || end.isSame(now, 'day'))) return 'today';
+    if (end && now.isAfter(start) && now.isBefore(end)) return 'ongoing';
+    if (now.isBefore(start)) return 'upcoming';
+    return 'past';
   };
 
-  const filteredEvents = events.filter((event) => {
-    const status = getStatus(event);
-    return (
-      (tab === 'upcoming' && status === 'Upcoming') ||
-      (tab === 'ongoing' && status === 'Ongoing') ||
-      (tab === 'past' && status === 'Past') ||
-      (tab === 'today' && status === 'Today')
-    );
-  });
+  const filteredEvents = tab === 'all' ? events : events.filter((event) => getStatus(event) === tab);
+
+  const statusColors: Record<string, string> = {
+    today: 'bg-yellow-600',
+    ongoing: 'bg-blue-600',
+    upcoming: 'bg-green-600',
+    past: 'bg-gray-700',
+  };
+
+  const statusIcons: Record<string, JSX.Element> = {
+    today: <Sun className="w-4 h-4" />,
+    ongoing: <Activity className="w-4 h-4" />,
+    upcoming: <Star className="w-4 h-4" />,
+    past: <History className="w-4 h-4" />,
+  };
 
   return (
     <DashboardLayout>
@@ -96,23 +103,18 @@ export default function EventsManager() {
         <h2 className="text-3xl font-bold mb-6">🎤 Manage Events</h2>
 
         <div className="flex gap-4 mb-8">
-          {['today', 'upcoming', 'ongoing', 'past'].map((t) => (
+          {['all', 'today', 'upcoming', 'ongoing', 'past'].map((t) => (
             <button
               key={t}
-              className={`px-4 py-2 rounded-xl capitalize font-medium transition ${
-                tab === t ? 'bg-pink-600 shadow-md shadow-pink-500/30' : 'bg-gray-800'
-              }`}
+              className={`px-4 py-2 rounded-xl capitalize font-medium transition ${tab === t ? 'bg-pink-600 shadow-md shadow-pink-500/30' : 'bg-gray-800'}`}
               onClick={() => setTab(t as any)}
             >
-              {t}
+              {statusIcons[t] || null} {t}
             </button>
           ))}
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="bg-[#111] p-6 rounded-2xl border border-white/10 shadow-xl space-y-4 mb-10"
-        >
+        <form onSubmit={handleSubmit} className="bg-[#111] p-6 rounded-2xl border border-white/10 shadow-xl space-y-4 mb-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" placeholder="Event Title" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600" required />
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-pink-600" required />
@@ -145,18 +147,11 @@ export default function EventsManager() {
                 <div className="p-4 space-y-2">
                   <div className="flex justify-between items-center">
                     <h4 className="text-xl font-bold text-white">{event.title}</h4>
-                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
-                      status === 'Today' ? 'bg-yellow-600' :
-                      status === 'Ongoing' ? 'bg-blue-600' :
-                      status === 'Upcoming' ? 'bg-green-600' :
-                      'bg-gray-700'
-                    }`}>
-                      {status}
-                    </span>
+                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${statusColors[status]}`}>{status}</span>
                   </div>
                   <p className="text-white/80 flex items-center gap-2 text-sm">
                     <Calendar className="w-4 h-4" />
-                    {dayjs(event.date).format('ddd, MMM D • h:mm A')}
+                    {dayjs(event.start_date).format('ddd, MMM D • h:mm A')}
                     {event.end_date && <span> - {dayjs(event.end_date).format('h:mm A')}</span>}
                   </p>
                   <p className="text-white/80 flex items-center gap-2 text-sm">
