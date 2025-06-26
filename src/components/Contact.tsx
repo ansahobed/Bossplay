@@ -263,14 +263,14 @@ export function Contact() {
 <div className="glow-card p-2 overflow-hidden">
   <div className="w-full h-80 rounded-lg overflow-hidden relative">
     <a
-      href="https://www.google.com/maps/dir/?api=1&destination=Traceés+Wellness+%26+Beauty+Spa"
+      href="https://www.google.com/maps/dir/?api=1&destination=Bossplay+Music"
       target="_blank"
       rel="noopener noreferrer"
       className="absolute inset-0 z-10"
       aria-label="Bossplay HeadQuaters"
     ></a>
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.2438133478026!2d-1.7917142031446867!3d4.898806653760776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfe779f067e38f8b%3A0x3c9376ee0c9a6b15!2sTrace%C3%A9s%20Wellness%20%26%20Beauty%20Spa!5e0!3m2!1sen!2sgh!4v1750351436668!5m2!1sen!2sgh"
+      src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d3975.239867593104!2d-1.7927755263594976!3d4.899470139905156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0xfe779e874e5e52f%3A0xbc867f9ea463dc05!2sBossplay%20Music%2C%20Nana%20Nketiah%20IV%20Street%2C%20Takoradi!3m2!1d4.8994648!2d-1.7902006!5e0!3m2!1sen!2sgh!4v1750940085934!5m2!1sen!2sgh"
       width="100%"
       height="100%"
       style={{ border: 0 }}
