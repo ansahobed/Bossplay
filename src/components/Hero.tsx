@@ -103,8 +103,10 @@ export function Hero() {
       id="home"
       className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isShrunk ? 'h-[70vh]' : 'h-screen'}`}
     >
+      {/* Glows / overlays */}
       <div className="hero-glow absolute inset-0 z-10"></div>
 
+      {/* Swiper Background */}
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         effect="fade"
@@ -128,7 +130,8 @@ export function Hero() {
         ))}
       </Swiper>
 
-      <div className="absolute inset-0 z-20 flex items-center justify-center">
+      {/* Hero Content */}
+      <div className="absolute inset-0 z-20 flex items-start justify-center pt-32 sm:pt-40 md:pt-48">
         <div className="container text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
