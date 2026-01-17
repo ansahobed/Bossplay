@@ -1,3 +1,4 @@
+// src/admin/pages/GalleryManager.tsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -9,27 +10,63 @@ export default function GalleryManager() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Fetch images on mount
   useEffect(() => {
     fetchImages();
+
+    // Supabase v2 Realtime subscription
+    const channel = supabase
+      .channel('gallery-insert')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'gallery' },
+        (payload) => {
+          setImages((prev) => [payload.new, ...prev]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchImages = async () => {
-    const { data, error } = await supabase
-      .from('gallery')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (!error) setImages(data || []);
+    try {
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      setImages(data || []);
+    } catch (err) {
+      console.error('Failed to fetch images:', err);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return;
     setLoading(true);
+
     try {
-      const { secure_url } = await uploadToCloudinary(file);
-      await supabase.from('gallery').insert({ image_url: secure_url });
-      setFile(null);
-      fetchImages();
+      // 1️⃣ Upload to Cloudinary
+      const cloudRes = await uploadToCloudinary(file);
+      const imageUrl = cloudRes.secure_url;
+      if (!imageUrl) throw new Error('Cloudinary returned no URL');
+
+      // 2️⃣ Insert into Supabase and get the inserted row
+      const { data: newImage, error } = await supabase
+        .from('gallery')
+        .insert({ image_url: imageUrl })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // 3️⃣ Update state immediately
+      setImages((prev) => [newImage, ...prev]);
+      setFile(null); // Reset file input
     } catch (err) {
       console.error('Upload failed:', err);
     } finally {
@@ -38,15 +75,21 @@ export default function GalleryManager() {
   };
 
   const deleteImage = async (id: string) => {
-    await supabase.from('gallery').delete().eq('id', id);
-    fetchImages();
+    try {
+      const { error } = await supabase.from('gallery').delete().eq('id', id);
+      if (error) throw error;
+      setImages((prev) => prev.filter((img) => img.id !== id));
+    } catch (err) {
+      console.error('Delete failed:', err);
+    }
   };
 
   return (
     <DashboardLayout>
       <div className="text-white px-4 py-6">
-        <h2 className="text-3xl font-bold mb-8">🖼️ Manage Gallery</h2>
+        <h2 className="text-3xl font-bold mb-8 text-pink-500">🖼️ Manage Gallery</h2>
 
+        {/* Upload Form */}
         <form
           onSubmit={handleSubmit}
           className="bg-gray-900 border border-white/10 rounded-2xl p-6 shadow-lg mb-10 space-y-4"
@@ -67,6 +110,7 @@ export default function GalleryManager() {
           </button>
         </form>
 
+        {/* Gallery Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {images.map((item) => (
             <div
